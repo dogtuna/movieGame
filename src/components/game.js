@@ -199,7 +199,7 @@ function Game() {
 
   const getAllMovies = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/movies");
+      const response = await axios.get("/api/movies");
       setAllMovies(response.data);
     } catch (error) {
       console.error("Failed to fetch all movies:", error);
@@ -208,8 +208,7 @@ function Game() {
 
   const getAllActors = async () => {
     try {
-      const response = await axios.get("http://localhost:5001/api/actors");
-      // Extract the actor names from the response data
+      const response = await axios.get("/api/actors");
       const allActors = response.data.map((actor) => actor.name);
       setAllActors(allActors);
     } catch (error) {
@@ -242,11 +241,11 @@ function Game() {
     setAnswer(randomActor);
     try {
       const response = await axios.get(
-        `http://localhost:5001/api/person?name=${randomActor}`
+        `/api/person?name=${randomActor}`
       );
       const actorId = response.data.id;
       const moviesResponse = await axios.get(
-        `http://localhost:5001/api/person/${actorId}/movies`
+        `/api/person/${actorId}/movies`
       );
       setMovieData(moviesResponse.data);
       console.log(moviesResponse.data);
@@ -258,11 +257,11 @@ function Game() {
   const getMovieCast = async (movieTitle) => {
     try {
       const movieResponse = await axios.get(
-        `http://localhost:5001/api/movie?title=${movieTitle}`
+        `/api/movie?title=${movieTitle}`
       );
       const movieId = movieResponse.data.id;
       const castResponse = await axios.get(
-        `http://localhost:5001/api/movie/${movieId}/credits`
+        `/api/movie/${movieId}/credits`
       );
       setActorData(castResponse.data);
       console.log(castResponse.data);
@@ -300,11 +299,11 @@ function Game() {
 
       try {
         const response = await axios.get(
-          `http://localhost:5001/api/person?name=${actor}`
+          `/api/person?name=${actor}`
         );
         const actorId = response.data.id;
         const moviesResponse = await axios.get(
-          `http://localhost:5001/api/person/${actorId}/movies`
+          `/api/person/${actorId}/movies`
         );
 
         const isCorrect = moviesResponse.data.cast.some(
