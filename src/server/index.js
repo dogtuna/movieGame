@@ -9,9 +9,8 @@ const PORT = process.env.PORT || 5001; // Use the port from the environment vari
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-require("dotenv").config();
 
-const TMDB_API_KEY = process.env.TMDB_API_KEY;
+const TMDB_API_KEY = process.env.TMDB_API_KEY || YOUR_TMDB_API_KEY;
 
 app.use(cors());
 
