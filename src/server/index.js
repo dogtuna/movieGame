@@ -107,14 +107,6 @@ app.get("/api/movies", async (req, res) => {
   res.json(allMovies);
 });
 
-app.get("/*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../build", "index.html"));
-});
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../../build", "index.html"));
-});
-
 // Simple logger
 function log(message) {
   const time = new Date();
@@ -123,3 +115,7 @@ function log(message) {
 
 // Serve static files from the 'build' directory
 app.use(express.static(path.join(__dirname, "../../build")));
+
+app.get("/*", (req, res) => {
+    res.sendFile(path.join(__dirname, "../../build", "index.html"));
+  });
