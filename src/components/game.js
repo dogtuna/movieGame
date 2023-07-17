@@ -199,7 +199,7 @@ function Game() {
 
   const getAllMovies = async () => {
     try {
-      const response = await axios.get("/api/movies");
+      const response = await axios.get("https://moviegame-de7d4fc3ae1e.herokuapp.com/api/movies");
       setAllMovies(response.data);
     } catch (error) {
       console.error("Failed to fetch all movies:", error);
@@ -208,9 +208,8 @@ function Game() {
 
   const getAllActors = async () => {
     try {
-      const response = await axios.get("/api/actors");
-      const allActors = response.data.map((actor) => actor.name);
-      setAllActors(allActors);
+      const response = await axios.get("https://moviegame-de7d4fc3ae1e.herokuapp.com/api/actors");
+      setAllActors(response.data);
     } catch (error) {
       console.error("Failed to fetch all actors:", error);
     }
