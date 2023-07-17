@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
-const path = require("path"); 
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 5001; // Use the port from the environment variables if available
@@ -15,21 +15,21 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 app.use(cors());
 
 app.get("/api/actors", async (req, res) => {
-    let allActors = [];
-    for (let i = 1; i <= 50; i++) {
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/person/popular?api_key=${TMDB_API_KEY}&language=en-US&page=${i}`
-        );
-        allActors.push(...response.data.results);
-      } catch (error) {
-        console.log("Error getting popular actors: " + error.message);
-        res.status(500).json({ message: "Error getting popular actors" });
-        return; // to break the loop in case of an error
-      }
+  let allActors = [];
+  for (let i = 1; i <= 50; i++) {
+    try {
+      const response = await axios.get(
+        `https://api.themoviedb.org/3/person/popular?api_key=${TMDB_API_KEY}&language=en-US&page=${i}`
+      );
+      allActors.push(...response.data.results);
+    } catch (error) {
+      console.log("Error getting popular actors: " + error.message);
+      res.status(500).json({ message: "Error getting popular actors" });
+      return; // to break the loop in case of an error
     }
-    res.json(allActors);
-  });
+  }
+  res.json(allActors);
+});
 
 app.get("/api/person", async (req, res) => {
   const personName = req.query.name;
@@ -107,19 +107,19 @@ app.get("/api/movies", async (req, res) => {
   res.json(allMovies);
 });
 
-app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+app.get("/*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../build", "index.html"));
+});
 
-  // Simple logger
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../../build", "index.html"));
+});
+
+// Simple logger
 function log(message) {
-    const time = new Date();
-    console.log(`[${time.toLocaleString()}]: ${message}`);
-  }
-  
-  // Serve static files from the 'build' directory
-  app.use(express.static(path.join(__dirname, '../../build')));
-  
-  app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname, '../../build', 'index.html'));
-    });
+  const time = new Date();
+  console.log(`[${time.toLocaleString()}]: ${message}`);
+}
+
+// Serve static files from the 'build' directory
+app.use(express.static(path.join(__dirname, "../../build")));
