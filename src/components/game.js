@@ -323,7 +323,7 @@ function Game() {
         <VStack
           p={4}
           width="100%"
-          maxW="100vw" // Add this line
+          maxW="100%"
           align="center"
           className="animate__animated animate__fadeIn"
         >
