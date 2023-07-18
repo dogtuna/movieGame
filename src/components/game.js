@@ -199,7 +199,9 @@ function Game() {
 
   const getAllMovies = async () => {
     try {
-      const response = await axios.get("https://moviegame-de7d4fc3ae1e.herokuapp.com/api/movies");
+      const response = await axios.get(
+        "https://moviegame-de7d4fc3ae1e.herokuapp.com/api/movies"
+      );
       setAllMovies(response.data);
     } catch (error) {
       console.error("Failed to fetch all movies:", error);
@@ -208,7 +210,9 @@ function Game() {
 
   const getAllActors = async () => {
     try {
-      const response = await axios.get("https://moviegame-de7d4fc3ae1e.herokuapp.com/api/actors");
+      const response = await axios.get(
+        "https://moviegame-de7d4fc3ae1e.herokuapp.com/api/actors"
+      );
       setAllActors(response.data);
     } catch (error) {
       console.error("Failed to fetch all actors:", error);
@@ -239,13 +243,9 @@ function Game() {
     setQuestion(`Name a movie that ${randomActor} has been in.`);
     setAnswer(randomActor);
     try {
-      const response = await axios.get(
-        `/api/person?name=${randomActor}`
-      );
+      const response = await axios.get(`/api/person?name=${randomActor}`);
       const actorId = response.data.id;
-      const moviesResponse = await axios.get(
-        `/api/person/${actorId}/movies`
-      );
+      const moviesResponse = await axios.get(`/api/person/${actorId}/movies`);
       setMovieData(moviesResponse.data);
       console.log(moviesResponse.data);
     } catch (error) {
@@ -255,13 +255,9 @@ function Game() {
 
   const getMovieCast = async (movieTitle) => {
     try {
-      const movieResponse = await axios.get(
-        `/api/movie?title=${movieTitle}`
-      );
+      const movieResponse = await axios.get(`/api/movie?title=${movieTitle}`);
       const movieId = movieResponse.data.id;
-      const castResponse = await axios.get(
-        `/api/movie/${movieId}/credits`
-      );
+      const castResponse = await axios.get(`/api/movie/${movieId}/credits`);
       setActorData(castResponse.data);
       console.log(castResponse.data);
     } catch (error) {
@@ -297,13 +293,9 @@ function Game() {
       const movie = answer;
 
       try {
-        const response = await axios.get(
-          `/api/person?name=${actor}`
-        );
+        const response = await axios.get(`/api/person?name=${actor}`);
         const actorId = response.data.id;
-        const moviesResponse = await axios.get(
-          `/api/person/${actorId}/movies`
-        );
+        const moviesResponse = await axios.get(`/api/person/${actorId}/movies`);
 
         const isCorrect = moviesResponse.data.cast.some(
           (castMember) => castMember.title && castMember.title === movieTitle
@@ -331,6 +323,7 @@ function Game() {
         <VStack
           p={4}
           width="100%"
+          maxW="100vw" // Add this line
           align="center"
           className="animate__animated animate__fadeIn"
         >
